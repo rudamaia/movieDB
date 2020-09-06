@@ -24,3 +24,4 @@
 /.env
 /.editorconfig
 /.gitattributes
+.DS_Store
