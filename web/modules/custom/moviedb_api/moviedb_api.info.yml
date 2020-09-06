@@ -1,0 +1,7 @@
+name: 'MovieDB API'
+type: module
+description: 'MovieDB API client and migrate source plugin for entity import'
+core: 8.x
+package: 'Migrate'
+dependencies:
+  - drupal:entity_import  

@@ -1,0 +1,266 @@
+<?php
+
+/**
+ * @file
+ * Contains moviedb_api.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_help().
+ */
+function moviedb_api_help($route_name, RouteMatchInterface $route_match)
+{
+    switch ($route_name) {
+        // Main module help for the moviedb_api module.
+        case 'help.page.moviedb_api':
+            $output = '';
+            $output .= '<h3>' . t('About') . '</h3>';
+            $output .= '<p>' . t('MovieDB API wrapper') . '</p>';
+            return $output;
+
+        default:
+    }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function moviedb_api_form_node_actor_edit_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+    _moviedb_api_hide_actor_fields($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function moviedb_api_form_node_actor_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+    _moviedb_api_hide_actor_fields($form);
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function moviedb_api_node_insert(NodeInterface $node)
+{
+    _moviedb_api_actor_movies_processor($node);
+}
+/**
+ * Implements hook_entity_presave().
+ */
+function moviedb_api_node_presave(NodeInterface $node)
+{
+    _moviedb_api_actor_extra_data($node);
+}
+
+/**
+ * Implements actor_extra_data function.
+ */
+function _moviedb_api_actor_extra_data(NodeInterface &$actor)
+{
+    if ($actor->getType() == 'actor') {
+        // Fetch extra person data.
+        $source_id = intval($actor->field_source_id->getValue()[0]['value']);
+        $actor_data = _moviedb_api_fetch_person_data($source_id);
+
+        // Fields that are identical in both sides.
+        $identical_fields = ['biography', 'place_of_birth', 'birthday', 'homepage'];
+        // Set fields.
+        foreach ($identical_fields as $field) {
+            if ($actor_data[$field]) {
+                $actor->set('field_' . $field, $actor_data[$field]);
+            }
+        }
+        // Profile pic.
+        if ($actor_data['profile_path']) {
+            $profilepic = isset($actor_data['profile_path']) ? $actor_data['profile_path'] : null;
+            $file = _moviedb_api_external_image(profilepic);
+            $actor->field_profile_picture->appendItem($file);
+
+        }
+        // Deathday.
+        if ($actor_data['deathday']) {
+            $actor->field_day_of_death = $actor_data['deathday'];
+        }
+        // Image gallery.
+        $actor_images = _moviedb_api_fetch_person_data($source_id, '/images')['profiles'];
+        if (count($actor_images) > 10) {
+            $actor_images = array_slice($actor_images, 0, 10);
+        }
+
+        foreach ($actor_images as $image) {
+            $file = _moviedb_api_external_image($image['file_path']);
+            $actor->field_images->appendItem($file);
+        }
+
+    }
+}
+/**
+ * Implements actor_movies_processor function.
+ */
+function _moviedb_api_actor_movies_processor(NodeInterface $node)
+{
+    if ($node->getType() == 'actor') {
+        $movies = $node->get('field_movies_source')->getValue();
+        // Iterate actor movies to create nodes.
+        foreach ($movies as $value) {
+            $data = json_decode($value['value'], true);
+            // Check for existing movie.
+            if (isset($data['title'])) {
+                $movie_nodes = _moviedb_api_search_node_by_title('movie', $data['title']);
+                // Create movie if doesn't exists.
+                if (!$movie_nodes) {
+                    _moviedb_api_create_movie($data, $node);
+                }
+            }
+        }
+
+    }
+}
+
+/**
+ * Implements search_node_by_title private function.
+ */
+function _moviedb_api_search_node_by_title(string $node_type, string $title)
+{
+    $nids = \Drupal::entityQuery('node')
+        ->condition('title', $title)
+        ->condition('type', $node_type)
+        ->execute();
+
+    return Node::loadMultiple($nids);
+}
+
+/**
+ * Implements create_movie private function.
+ */
+function _moviedb_api_create_movie(array $data, NodeInterface $actor)
+{
+    // Initial entity setup.
+    $new_movie = entity_create('node', array('type' => 'movie'));
+    $new_movie->title = $data['title'];
+    // Fetch extra movie data.
+    $movie_details = _moviedb_api_fetch_movie_data($data['id']);
+    // Check for existing companies.
+    foreach ($movie_details['production_companies'] as $company) {
+        $company_nodes = _moviedb_api_search_node_by_title('company', $company['name']);
+        // Create movie if doesn't exists.
+        if (!$company_nodes) {
+            $company_nodes = _moviedb_api_create_company($company);
+        }
+        // Set company reference in the movie node.
+        $new_movie->field_production_companies->appendItem($company_nodes);
+    }
+    // Similar.
+    $similar = _moviedb_api_fetch_movie_data($data['id'], '/similar')['results'];
+    if ($similar) {
+        foreach ($similar as $movie) {
+            $similar_movies[] = $movie['title'];
+        }
+
+        $new_movie->field_similar_movies = $similar_movies;
+    }
+    // Reviews.
+    $movie_reviews = _moviedb_api_fetch_movie_data($data['id'], '/reviews');
+    foreach ($movie_reviews['results'] as $review_data) {
+        $review = _moviedb_api_create_review($review_data, $data['title']);
+        $new_movie->field_reviews->appendItem($review);
+    }
+    // Popularity.
+    $new_movie->field_popularity = $movie_details['popularity'];
+    // Fields that are identical in both sides.
+    $identical_fields = ['release_date', 'original_language', 'original_title'];
+    // Set fields.
+    foreach ($identical_fields as $field) {
+        $new_movie->set('field_' . $field, $data[$field]);
+    }
+    // Load genres.
+    $new_movie->field_genres = Term::loadMultiple($data['genre_ids']);
+    // Set cast.
+    if ($actor) {
+        $new_movie->field_cast->appendItem($actor);
+    }
+    // Set Poster.
+    $poster = isset($data['poster_path']) ? $data['poster_path'] : null;
+    $new_movie->field_poster->appendItem(_moviedb_api_external_image($poster));
+    $new_movie->save();
+}
+
+/**
+ * Implements create_company private function.
+ */
+function _moviedb_api_create_company(array $data)
+{
+    $new_company = entity_create('node', array('type' => 'company'));
+    $new_company->title = $data['name'];
+    $logo = isset($data['logo_path']) ? $data['logo_path'] : null;
+    $new_company->field_logo->appendItem(_moviedb_api_external_image($data['logo_path']));
+    $new_company->save();
+
+    return $new_company;
+}
+
+/**
+ * Implements create_review private function.
+ */
+function _moviedb_api_create_review(array $data, string $movie_title)
+{
+    $new_review = entity_create('node', array('type' => 'review'));
+    $new_review->title = $movie_title . ' - ' . $data['author'];
+    $new_review->field_author = $data['author'];
+    $identical_fields = ['author', 'url', 'content'];
+    // Set fields.
+    foreach ($identical_fields as $field) {
+        $new_review->set('field_' . $field, $data[$field]);
+    }
+
+    $new_review->save();
+
+    return $new_review;
+}
+
+/**
+ * Implements external_image function.
+ */
+function _moviedb_api_external_image($image_path)
+{
+    $url = $image_path ? 'https://image.tmdb.org/t/p/w500' . $image_path : 'https://i.imgur.com/D9MH8eu.jpg';
+    $image = system_retrieve_file($url, 'public://', true);
+
+    return $image;
+}
+
+/**
+ * Implements fetch_movie_data private function.
+ */
+function _moviedb_api_fetch_movie_data(int $id, string $endpoint = '')
+{
+    return Drupal::service('moviedb_api.client')->get('movie/' . $id . $endpoint);
+}
+
+/**
+ * Implements fetch_person_data function.
+ */
+function _moviedb_api_fetch_person_data(int $id, string $endpoint = '')
+{
+    return Drupal::service('moviedb_api.client')->get('person/' . $id . $endpoint);
+}
+
+/**
+ * Implements hide_actor_fields function.
+ */
+function _moviedb_api_hide_actor_fields(&$form)
+{
+    $hide = ['field_movies_source', 'field_source_id'];
+
+    foreach ($hide as $field) {
+        unset($form[$field]);
+    }
+
+}

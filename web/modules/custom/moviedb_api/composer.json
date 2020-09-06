@@ -1,0 +1,17 @@
+{
+    "name": "moviedb_api",
+    "type": "drupal-module",
+    "description": "MovieDB API client and migrate source plugin for entity import",
+    "keywords": [],
+    "authors": [
+        {
+            "name": "Ruda Maia",
+            "email": "rudamaia@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/rudamaia",
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^6"
+    }
+}

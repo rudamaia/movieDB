@@ -1,0 +1,9 @@
+moviedb_api.external_api_key_form:
+  path: '/admin/config/moviedb_api/externalapikey'
+  defaults:
+    _form: '\Drupal\moviedb_api\Form\ExternalApiKeyForm'
+    _title: 'ExternalApiKeyForm'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
