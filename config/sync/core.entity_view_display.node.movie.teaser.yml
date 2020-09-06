@@ -1,0 +1,91 @@
+uuid: 41054afa-1730-40a8-8751-873c71a75645
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.movie.body
+    - field.field.node.movie.field_cast
+    - field.field.node.movie.field_genres
+    - field.field.node.movie.field_original_language
+    - field.field.node.movie.field_original_title
+    - field.field.node.movie.field_popularity
+    - field.field.node.movie.field_poster
+    - field.field.node.movie.field_production_companies
+    - field.field.node.movie.field_release_date
+    - field.field.node.movie.field_reviews
+    - field.field.node.movie.field_similar_movies
+    - image.style.medium
+    - node.type.movie
+  module:
+    - datetime
+    - ds
+    - image
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: barrio_media
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      first:
+        - field_poster
+      second:
+        - node_title
+        - field_release_date
+        - field_genres
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: h2
+          class: ''
+id: node.movie.teaser
+targetEntityType: node
+bundle: movie
+mode: teaser
+content:
+  field_genres:
+    type: entity_reference_label
+    weight: 3
+    region: second
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_poster:
+    type: image
+    weight: 0
+    region: first
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: content
+    third_party_settings: {  }
+  field_release_date:
+    type: datetime_default
+    weight: 2
+    region: second
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: html_month
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_cast: true
+  field_original_language: true
+  field_original_title: true
+  field_popularity: true
+  field_production_companies: true
+  field_reviews: true
+  field_similar_movies: true
+  links: true

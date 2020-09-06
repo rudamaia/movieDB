@@ -1,0 +1,23 @@
+uuid: 4933351c-04f3-46bd-a8a2-2e6c0ec5e161
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_popularity
+    - node.type.movie
+id: node.movie.field_popularity
+field_name: field_popularity
+entity_type: node
+bundle: movie
+label: Popularity
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

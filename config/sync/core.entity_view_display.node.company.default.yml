@@ -1,0 +1,30 @@
+uuid: 798343bb-8d54-4678-8864-2b09cc3821d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.company.field_logo
+    - node.type.company
+  module:
+    - image
+    - user
+id: node.company.default
+targetEntityType: node
+bundle: company
+mode: default
+content:
+  field_logo:
+    weight: 101
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

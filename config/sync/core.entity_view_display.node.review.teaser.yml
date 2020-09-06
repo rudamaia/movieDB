@@ -1,0 +1,26 @@
+uuid: c3a754d4-b38f-4a4b-8b19-40dc78a9ba07
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.review.field_author
+    - field.field.node.review.field_content
+    - field.field.node.review.field_url
+    - node.type.review
+  module:
+    - user
+id: node.review.teaser
+targetEntityType: node
+bundle: review
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_author: true
+  field_content: true
+  field_url: true

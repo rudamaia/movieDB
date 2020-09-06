@@ -1,0 +1,30 @@
+uuid: 411414a1-fdf1-4a82-b565-3358d7f9f617
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.actors
+  module:
+    - system
+    - views
+  theme:
+    - moviedb
+id: views_block__actors_block_1
+theme: moviedb
+region: content
+weight: 1
+provider: null
+plugin: 'views_block:actors-block_1'
+settings:
+  id: 'views_block:actors-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

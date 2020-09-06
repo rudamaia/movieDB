@@ -1,0 +1,30 @@
+uuid: dcd6bc66-622a-4ec7-b97c-21e8df363d0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.movies
+  module:
+    - system
+    - views
+  theme:
+    - moviedb
+id: views_block__movies_block_1
+theme: moviedb
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:movies-block_1'
+settings:
+  id: 'views_block:movies-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

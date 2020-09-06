@@ -1,0 +1,21 @@
+uuid: 6ebc84e4-5c7c-4b73-94a4-36300292a0d4
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - moviedb
+id: searchform
+theme: moviedb
+region: primary_menu
+weight: -7
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form'
+  provider: search
+  label_display: '0'
+  page_id: ''
+visibility: {  }

@@ -1,0 +1,22 @@
+uuid: aaa0d975-8f9a-47b2-8f9c-212c2d6588e7
+langcode: en
+status: true
+dependencies: {  }
+id: genres
+label: genres
+display_page: true
+description: ''
+source:
+  plugin_id: entity_import_moviedb
+  configuration:
+    api_key: 6c6ca995a98f0e88e2f8762e1056108f
+    endpoint: genre/movie/list
+    params: ''
+    throttle: '100'
+entity:
+  type: taxonomy_term
+  bundles:
+    tags: tags
+migration_dependencies:
+  optional:
+    migration: {  }

@@ -1,0 +1,23 @@
+uuid: dc8cd9a1-5172-4596-ba0a-9af48a585dfc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source_id
+    - node.type.actor
+id: node.actor.field_source_id
+field_name: field_source_id
+entity_type: node
+bundle: actor
+label: 'Source ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

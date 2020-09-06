@@ -1,0 +1,20 @@
+uuid: d0bc3b88-85b7-4c4c-97f1-c16e592d6356
+langcode: en
+status: true
+dependencies:
+  theme:
+    - moviedb
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: moviedb_local_actions
+theme: moviedb
+region: content
+weight: -2
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

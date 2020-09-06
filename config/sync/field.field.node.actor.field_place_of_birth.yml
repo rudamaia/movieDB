@@ -1,0 +1,19 @@
+uuid: 402b74f7-6ed4-4009-a5c5-7c1d53edde91
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_place_of_birth
+    - node.type.actor
+id: node.actor.field_place_of_birth
+field_name: field_place_of_birth
+entity_type: node
+bundle: actor
+label: 'Place of birth'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

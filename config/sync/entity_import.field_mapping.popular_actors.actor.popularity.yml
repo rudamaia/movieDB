@@ -1,0 +1,22 @@
+uuid: 24f68e8b-b9b7-4431-9f28-b8e2eec43622
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_import.type.popular_actors
+id: popular_actors.actor.popularity
+label: popularity
+name: popularity
+destination: field_popularity
+processing:
+  plugins:
+    entity_import_skip_on_empty: entity_import_skip_on_empty
+  configuration:
+    plugins:
+      entity_import_skip_on_empty:
+        settings:
+          method: row
+          message: 'popularity empty'
+        weight: 0
+importer_type: popular_actors
+importer_bundle: actor

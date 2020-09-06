@@ -1,0 +1,16 @@
+uuid: 02b525dd-e15f-4f68-8f03-ae9b262cb6b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_import.type.genres
+id: genres.tags.name
+label: name
+name: name
+destination: name
+processing:
+  plugins: {  }
+  configuration:
+    plugins: ''
+importer_type: genres
+importer_bundle: tags

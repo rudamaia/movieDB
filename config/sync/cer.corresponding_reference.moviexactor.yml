@@ -1,0 +1,13 @@
+uuid: cc9ed5af-edbf-4659-a10c-770a22c43429
+langcode: en
+status: true
+dependencies: {  }
+id: moviexactor
+label: movieXactor
+enabled: true
+first_field: field_cast
+second_field: field_movies
+bundles:
+  node:
+    - actor
+    - movie

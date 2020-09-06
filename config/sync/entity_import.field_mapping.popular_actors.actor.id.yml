@@ -1,0 +1,16 @@
+uuid: 3a613d96-794e-4ebe-b7ac-81600ff2caaf
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_import.type.popular_actors
+id: popular_actors.actor.id
+label: id
+name: id
+destination: field_source_id
+processing:
+  plugins: {  }
+  configuration:
+    plugins: ''
+importer_type: popular_actors
+importer_bundle: actor

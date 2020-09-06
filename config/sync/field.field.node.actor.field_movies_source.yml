@@ -1,0 +1,19 @@
+uuid: 7f72e799-c71c-4fd7-bd51-2f8dc5f6adbc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_movies_source
+    - node.type.actor
+id: node.actor.field_movies_source
+field_name: field_movies_source
+entity_type: node
+bundle: actor
+label: movies_source
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,21 @@
+uuid: 0010efbe-cdf7-4529-b4e3-a27b51b97476
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_day_of_death
+    - node.type.actor
+  module:
+    - datetime
+id: node.actor.field_day_of_death
+field_name: field_day_of_death
+entity_type: node
+bundle: actor
+label: 'Day of death'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

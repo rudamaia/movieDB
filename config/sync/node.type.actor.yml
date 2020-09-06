@@ -1,0 +1,17 @@
+uuid: 24e915fb-9628-4f18-829e-b431fc5e61da
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Actor
+type: actor
+description: 'Actor information.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

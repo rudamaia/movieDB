@@ -1,0 +1,23 @@
+uuid: f936da7a-9a57-4bb1-a895-d2093ee76e92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_popularity
+    - node.type.actor
+id: node.actor.field_popularity
+field_name: field_popularity
+entity_type: node
+bundle: actor
+label: Popularity
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

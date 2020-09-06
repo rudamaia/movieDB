@@ -1,0 +1,21 @@
+uuid: 47a8a554-1b32-433c-8435-e95b7ce00c05
+langcode: en
+status: true
+dependencies: {  }
+id: popular_actors
+label: 'popular actors'
+display_page: true
+description: ''
+source:
+  plugin_id: entity_import_moviedb
+  configuration:
+    endpoint: person/popular
+    params: '[{"known_for_department": "Acting"}]'
+    throttle: '20'
+entity:
+  type: node
+  bundles:
+    actor: actor
+migration_dependencies:
+  optional:
+    migration: {  }

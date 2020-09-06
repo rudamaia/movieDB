@@ -1,0 +1,63 @@
+uuid: f5aae0ef-ba44-4801-a3a5-bd7610713ed5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.review.field_author
+    - field.field.node.review.field_content
+    - field.field.node.review.field_url
+    - node.type.review
+  module:
+    - ds
+    - link
+    - text
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      content:
+        - field_author
+        - field_url
+        - field_content
+id: node.review.default
+targetEntityType: node
+bundle: review
+mode: default
+content:
+  field_author:
+    weight: 0
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_content:
+    weight: 2
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    type: text_trimmed
+    region: content
+  field_url:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 80
+      target: _blank
+      url_only: false
+      url_plain: false
+      rel: '0'
+    third_party_settings: {  }
+    type: link
+    region: content
+hidden:
+  links: true

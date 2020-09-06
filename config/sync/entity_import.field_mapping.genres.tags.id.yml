@@ -1,0 +1,16 @@
+uuid: 8dc99183-9caa-426b-aae1-73061c708214
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_import.type.genres
+id: genres.tags.id
+label: id
+name: id
+destination: tid
+processing:
+  plugins: {  }
+  configuration:
+    plugins: ''
+importer_type: genres
+importer_bundle: tags

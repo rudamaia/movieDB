@@ -1,0 +1,150 @@
+uuid: dbf2a956-1d08-4d99-88d8-413a9b7140e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.actor.field_biography
+    - field.field.node.actor.field_birthday
+    - field.field.node.actor.field_day_of_death
+    - field.field.node.actor.field_homepage
+    - field.field.node.actor.field_images
+    - field.field.node.actor.field_movies
+    - field.field.node.actor.field_movies_source
+    - field.field.node.actor.field_place_of_birth
+    - field.field.node.actor.field_popularity
+    - field.field.node.actor.field_profile_picture
+    - field.field.node.actor.field_source_id
+    - node.type.actor
+  module:
+    - datetime
+    - ds
+    - image
+    - link
+    - text
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: ds_2col_stacked
+      library: ds/ds_2col_stacked
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+        wrappers:
+          header: div
+          left: div
+          right: div
+          footer: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+        classes:
+          layout_class: {  }
+    regions:
+      left:
+        - field_profile_picture
+      right:
+        - field_birthday
+        - field_place_of_birth
+        - field_day_of_death
+        - field_biography
+        - field_popularity
+        - field_homepage
+        - field_movies
+      footer:
+        - field_images
+id: node.actor.default
+targetEntityType: node
+bundle: actor
+mode: default
+content:
+  field_biography:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: right
+  field_birthday:
+    weight: 1
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short
+    third_party_settings: {  }
+    type: datetime_default
+    region: right
+  field_day_of_death:
+    weight: 3
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short
+    third_party_settings: {  }
+    type: datetime_default
+    region: right
+  field_homepage:
+    weight: 6
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: right
+  field_images:
+    weight: 8
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    third_party_settings:
+      ds:
+        ds_limit: ''
+    type: image
+    region: footer
+  field_movies:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: right
+  field_place_of_birth:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: right
+  field_popularity:
+    weight: 5
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: right
+  field_profile_picture:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: left
+hidden:
+  field_movies_source: true
+  field_source_id: true
+  links: true

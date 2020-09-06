@@ -1,0 +1,23 @@
+uuid: a9a852dc-235b-4cc5-9e76-86b40c16e724
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_homepage
+    - node.type.actor
+  module:
+    - link
+id: node.actor.field_homepage
+field_name: field_homepage
+entity_type: node
+bundle: actor
+label: Homepage
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

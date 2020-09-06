@@ -1,0 +1,21 @@
+uuid: 8857b5c8-5a3e-4557-8399-64e5da1b1998
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_import.type.popular_actors
+id: popular_actors.actor.known_for
+label: known_for
+name: known_for
+destination: field_movies_source
+processing:
+  plugins:
+    moviedb_movies_to_string: moviedb_movies_to_string
+  configuration:
+    plugins:
+      moviedb_movies_to_string:
+        weight: 1
+        settings:
+          method: moviesToString
+importer_type: popular_actors
+importer_bundle: actor

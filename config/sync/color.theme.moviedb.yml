@@ -1,0 +1,18 @@
+palette:
+  top: '#055a8e'
+  bottom: '#032541'
+  bg: '#ffffff'
+  sidebar: '#f6f6f2'
+  sidebarborders: '#f9f9f9'
+  footer: '#292929'
+  button: '#007bff'
+  buttonhover: '#0256b1'
+  titleslogan: '#fffeff'
+  text: '#3b3b3b'
+  link: '#0071b3'
+logo: 'public://color/moviedb-1a4a0bff/logo.svg'
+stylesheets:
+  - 'public://color/moviedb-1a4a0bff/colors.css'
+files:
+  - 'public://color/moviedb-1a4a0bff/logo.svg'
+  - 'public://color/moviedb-1a4a0bff/colors.css'
