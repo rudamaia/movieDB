@@ -14,21 +14,31 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * Example on how to alter theme settings form
  */
-function moviedb_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
-  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = [
-    'bg-primary' => t('Primary'),
-    'bg-secondary' => t('Secondary'),
-    'bg-light' => t('Light'),
-    'bg-dark' => t('Dark'),
-    'bg-white' => t('White'),
-    'bg-transparent' => t('Transparent'),
-  ];
-  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = [
-    'bg-primary' => t('Primary'),
-    'bg-secondary' => t('Secondary'),
-    'bg-light' => t('Light'),
-    'bg-dark' => t('Dark'),
-    'bg-white' => t('White'),
-    'bg-transparent' => t('Transparent'),
-  ];
+function moviedb_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
+{
+    $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = [
+        'bg-primary' => t('Primary'),
+        'bg-secondary' => t('Secondary'),
+        'bg-light' => t('Light'),
+        'bg-dark' => t('Dark'),
+        'bg-white' => t('White'),
+        'bg-transparent' => t('Transparent'),
+    ];
+    $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = [
+        'bg-primary' => t('Primary'),
+        'bg-secondary' => t('Secondary'),
+        'bg-light' => t('Light'),
+        'bg-dark' => t('Dark'),
+        'bg-white' => t('White'),
+        'bg-transparent' => t('Transparent'),
+    ];
+}
+
+function moviedb_form_alter(&$form, &$form_state, $form_id)
+{
+    if ($form_id == 'search_block_form') {
+        $form['keys']['#attributes']['placeholder'] = t('Search for movie or actor');
+        $form['actions']['submit']['#value'] = t('Find');
+        // dump($form);
+    }
 }

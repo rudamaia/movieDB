@@ -1,7 +1,115 @@
+//BreakPoints.
+$breakpoints: (
+    xs: 576px,
+    sm: 768px,
+    md: 992px,
+    lg: 1200px,
+);
 // Brand.
 .navbar-brand {
     img {
         width: 88px;
         height: 64px;
     }
+}
+// Navbar.
+#navbar-main {
+    .nav-link {
+        color: #5cc4ba;
+
+        @media (max-width: map-get($breakpoints, md)) {
+            text-align: center;
+            font-size: 27px;
+        }
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .form-row > fieldset {
+        margin: 0;
+        height: 40px;
+    }
+
+    #block-searchform {
+        @media (max-width: map-get($breakpoints, md)) {
+            text-align: center;
+        }
+
+        #search-block-form {
+            padding: 8px 15px 0 15px;
+            height: 40px;
+        }
+    }
+}
+// Account menu.
+#navbar-top {
+    background-color: #02b3e4 !important;
+    .nav-link {
+        color: #032541;
+    }
+}
+// Content.
+#content {
+    padding-top: 15px;
+}
+// Badge.
+.badge {
+    a, a:hover {
+        color: white;
+    }
+    &.badge-secondary:hover:not(.badge-date) {
+        background-color: #007bff;
+    }
+}
+// Row.
+.row-spacing {
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}
+// Taxonomy.
+.badge-spacer {
+    padding: 3px;
+}
+
+// Media display.
+.media {
+    h2 {
+        font-size: 20px;
+        font-weight: bolder;
+    }
+
+    img {
+        margin-right: 10px;
+    }
+
+    .field__label {
+        font-weight: bolder;
+    }
+
+    .badge {
+        padding: 0 .4em 0.25em .4em;
+
+        a {
+            font-size: 8px;
+        }
+    }
+}
+// Node.
+.node {
+    .field__label {
+        font-weight: bolder;
+    }
+}
+// Front.
+.path-frontpage {
+    .block-views-blockactors-block-1 {
+        margin-top: 20px;
+    }
+}
+// Exposed form.
+.views-exposed-form {
+    margin: 15px 0;
 }
