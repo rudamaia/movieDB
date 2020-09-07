@@ -80,7 +80,7 @@ function _moviedb_api_actor_extra_data(NodeInterface &$actor)
         // Profile pic.
         if ($actor_data['profile_path']) {
             $profilepic = isset($actor_data['profile_path']) ? $actor_data['profile_path'] : null;
-            $file = _moviedb_api_external_image(profilepic);
+            $file = _moviedb_api_external_image($profilepic);
             $actor->field_profile_picture->appendItem($file);
 
         }

@@ -112,7 +112,7 @@ class EntityImportSourceMovieDB extends EntityImportSourceLimitIteratorBase impl
         ];
 
         // The form just shows overview data about the items to import.
-        $form['access_token'] = [
+        $form['moviedb_importer'] = [
             '#prefix' => '<h2>' . $this->t('MovieDB importer') . '</h2><pre>',
             '#suffix' => '</pre>',
             '#markup' => implode('<br/>', $values),
@@ -151,6 +151,12 @@ class EntityImportSourceMovieDB extends EntityImportSourceLimitIteratorBase impl
             '#default_value' => $config['throttle'],
             '#description' => $this->t('Limit the number of API items processed per request.'),
         ];
+        $form['total_entries'] = [
+            '#type' => 'textfield',
+            '#title' => $this->t('Entries to proccess'),
+            '#default_value' => $config['total_entries'],
+        ];
+
         return $form;
     }
 
@@ -196,14 +202,13 @@ class EntityImportSourceMovieDB extends EntityImportSourceLimitIteratorBase impl
         $params['page'] = $page;
 
         $response = $this->moviedbApiService->get($config['endpoint'], $params);
-
+        // Actors.
         if (isset($response['total_results'])) {
-            $this->totalEntries = $response['total_results'];
+            $this->totalEntries = $config['total_entries'] > 0 ? $config['total_entries'] : $response['total_results'];
             return $response['results'];
         }
-
-        $this->totalEntries = count($response['genres']);
-
+        // Genres.
+        $this->totalEntries = $config['total_entries'] > 0 ? $config['total_entries'] : count($response['genres']);
         return $response['genres'];
 
     }
@@ -294,6 +299,7 @@ class EntityImportSourceMovieDB extends EntityImportSourceLimitIteratorBase impl
             'endpoint' => '',
             'params' => '',
             'throttle' => 10,
+            'total_entries' => '',
         ] + parent::defaultConfiguration();
     }
 
