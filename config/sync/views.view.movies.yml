@@ -259,7 +259,7 @@ display:
             label: ''
           granularity: month
           plugin_id: datetime
-      title: 'Top 10 upcoming movies'
+      title: 'Top 10 latest movies'
       style:
         type: grid
         options:
