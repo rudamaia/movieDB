@@ -1,5 +1,5 @@
 
-#Installation.
+# Installation.
 #### Codebase.
 `git clone https://github.com/rudamaia/movieDB FOLDERNAME`  
 `cd FOLDERNAME`  
@@ -14,7 +14,7 @@
 `vendor/drush/drush/drush cim -y`
 
 *You Drupal instalation should be now ready for data fetching.*
-#Data Fetching
+# Data Fetching
 #### Drupal admin interface. (logged in as Admin)
 1. Configure your movieDB api key in 'admin/config/moviedb_api/externalapikey'.
 2. Import Movie Genres so they can be referenced in movies later on. Go to **'admin/content/entity-importer/genres' and click 'import'**.
